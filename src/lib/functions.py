@@ -6,8 +6,11 @@
 from lib.File import File
 from lib.Tmd import Tmd
 from lib.Cache import Cache
+from lib.FilePath import FilePath
 
+import re
 import tkinter as tk
+
 from tkinter.filedialog import askopenfilenames
 
 tmd = Tmd()
@@ -20,7 +23,7 @@ def add_files_to_rename(frame, files):
     added_files = askopenfilenames(initialdir="/", title="Select file / files")
 
     files.clear()
-    if (len(added_files) > 0):
+    if len(added_files) > 0:
         for file in added_files:
             files.append(File(file))
 
@@ -44,7 +47,7 @@ def render_file_names(frame, files_list):
         Renders name of each file stored in memory
     """
     for label in frame.winfo_children():
-        if (isinstance(label, tk.Label)):
+        if isinstance(label, tk.Label):
             label.destroy()
 
     for file in files_list:
@@ -52,12 +55,15 @@ def render_file_names(frame, files_list):
         label.pack()
 
 
-def convert_file_names(frames, files):
+def convert_file_names(frames, files, selected_format):
     """ 
         Initiates the renaming of all files stored in memory
     """
     for file in files:
-        file.rename()
+        if re.compile("[A-Z]:/").search(selected_format):
+            file.rename(new_path=FilePath(selected_format))
+        else:
+            file.rename(new_path=None)
     files.clear()
 
     for frame in frames:
@@ -67,11 +73,11 @@ def convert_file_names(frames, files):
     cache.clear_file_from_cache()
 
 
-def save_format(format):
+def save_format(format_string):
     """ 
         Saves format input to file
     """
-    selected_format = format.getValue()
+    selected_format = format_string.getValue()
 
     if selected_format.strip() != "":
         cache = Cache()
