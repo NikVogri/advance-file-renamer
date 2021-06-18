@@ -1,8 +1,8 @@
-# Advance file renamer
+# Advance tv & movie renamer
 
 ## Description
 
-Free and easy to use advance file renamer built with Python. Select TV or Movie & subtitle files and rename those files by specifying new filename format.
+Free and easy to use advance file renamer built with Python. Select TV or Movie & subtitle files and rename and/or move them by specifying a new format!
 
 ## Packages
 
