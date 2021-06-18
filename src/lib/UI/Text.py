@@ -20,16 +20,16 @@ class Text(Cache):
     def set_cached_value(self):
         cached_text_val = self.read_from_cache(name="format.txt")
 
-        if (cached_text_val != -1):
+        if cached_text_val != -1:
             self.text.set(cached_text_val)
 
     def getValue(self, text_type="string"):
         text = self.text.get().strip()
 
-        if type == "number":
+        if text_type == "number":
             try:
                 return int(text)
-            except:
+            except ValueError:
                 return 0
         else:
             return text
