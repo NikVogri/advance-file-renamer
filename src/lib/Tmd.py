@@ -4,8 +4,8 @@
 # -----------------------------------------------------------
 import requests
 from lib.Cache import Cache
-import json
 from lib.config import tmdb_api_key
+
 
 class Tmd(Cache):
     api_key = tmdb_api_key
@@ -15,19 +15,21 @@ class Tmd(Cache):
         """ 
             Fetches data from TMDB api
         """
-        content_type = "movie" if season == None else "tv"
+        content_type = "movie" if season is None else "tv"
         output = None
 
-        if (content_type == "tv"):
+        if content_type == "tv":
             query = f"{self.api_url}/search/tv?api_key={self.api_key}&query={title}&page=1"
             res = requests.get(query)
+            print(query)
 
-            if (res.ok):
+            if res.ok:
+                # TODO: check if response is empty, if it is then prompt user to enter title
                 show_id = dict(res.json())["results"][0]["id"]
                 query = f"{self.api_url}/tv/{show_id}/season/{season}?api_key={self.api_key}"
                 data_res = requests.get(query)
 
-                if (data_res.ok):
+                if data_res.ok:
                     output = data_res.json()
 
         return self.clean_response(output)
@@ -38,9 +40,7 @@ class Tmd(Cache):
         """
         episodes = []
         for episode in response["episodes"]:
-            output = {}
-            output["number"] = episode["episode_number"]
-            output["season"] = episode["season_number"]
+            output = {"number": episode["episode_number"], "season": episode["season_number"]}
 
             if "name" in episode:
                 output["title"] = episode["name"]
