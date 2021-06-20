@@ -37,16 +37,16 @@ def render_ui():
 
     configuration_frame_labels = tk.Frame(
         configuration_frame, width=400, height=173).place(x=0)
-    configuration_frame_inputs = tk.Frame(
+    tk.Frame(
         configuration_frame, width=600, height=173).place(x=200)
-    configuration_frame_actions = tk.Frame(
+    tk.Frame(
         configuration_frame, width=400, height=173).place(x=400)
 
-    format_label = tk.Label(configuration_frame_labels,
-                            text="Desired format: ").place(x=10, y=570)
+    tk.Label(configuration_frame_labels,
+             text="Desired format: ").place(x=10, y=570)
 
-    format_label2 = tk.Label(configuration_frame_labels,
-                             text="title - #title# \n year - #year# \n season - #season \n episode - #episode# \n episodeTitle - #episodeTitle#").place(
+    tk.Label(configuration_frame_labels,
+             text="title - #title# \n year - #year# \n season - #season \n episode - #episode# \n episodeTitle - #episodeTitle#").place(
         x=700, y=570)
 
     format_input = Text(configuration_frame_labels,
@@ -56,7 +56,7 @@ def render_ui():
               width=11, command=lambda: preview_file_names(result_frame, format_input, files)).place(x=1100, y=550)
 
     tk.Button(configuration_frame_labels, text="Rename", height=3, width=11,
-              command=lambda: convert_file_names([selector_frame, result_frame], files, format_input.getValue())).place(
+              command=lambda: convert_file_names(root, [selector_frame, result_frame], files)).place(
         x=1100, y=620)
 
     tk.Button(configuration_frame_labels, text="Save format", height=1,
