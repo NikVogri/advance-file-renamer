@@ -9,5 +9,8 @@ class FilePath():
         sep = os.path.sep
         return f"{self.disk}{sep}{sep.join(self.directories)}"
 
-    def path_exists(self):
+    def exists(self):
         return os.path.exists(self.build_path())
+
+    def create(self):
+        os.makedirs(self.build_path(), exist_ok=True)
