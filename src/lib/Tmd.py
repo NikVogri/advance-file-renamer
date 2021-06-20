@@ -4,14 +4,13 @@
 # -----------------------------------------------------------
 import requests
 from lib.Cache import Cache
-from lib.config import tmdb_api_key
+from lib.config import tmdb_api_key, tmdb_api_url
 
 
-class Tmd(Cache):
-    api_key = tmdb_api_key
-    api_url = f'https://api.themoviedb.org/3'
+class Tmd():
 
-    def fetch_content_data(self, title="", season=None):
+    @staticmethod
+    def fetch_tv_season(title="", season=None):
         """ 
             Fetches data from TMDB api
         """
@@ -19,34 +18,36 @@ class Tmd(Cache):
         output = None
 
         if content_type == "tv":
-            query = f"{self.api_url}/search/tv?api_key={self.api_key}&query={title}&page=1"
+            query = f"{tmdb_api_url}/search/tv?api_key={tmdb_api_key}&query={title}&page=1"
             res = requests.get(query)
             print(query)
 
             if res.ok:
                 # TODO: check if response is empty, if it is then prompt user to enter title
                 show_id = dict(res.json())["results"][0]["id"]
-                query = f"{self.api_url}/tv/{show_id}/season/{season}?api_key={self.api_key}"
+                query = f"{tmdb_api_url}/tv/{show_id}/season/{season}?api_key={tmdb_api_key}"
                 data_res = requests.get(query)
 
                 if data_res.ok:
                     output = data_res.json()
 
-        return self.clean_response(output)
+        episodes = Tmd.clean_response(output)
+        Cache.add_to_cache(episodes)
 
-    def clean_response(self, response):
+        return episodes
+
+    @staticmethod
+    def clean_response(response):
         """ 
             Removes redundant information from API response
         """
         episodes = []
         for episode in response["episodes"]:
-            output = {"number": episode["episode_number"], "season": episode["season_number"]}
+            output = {"episode": episode["episode_number"], "season": episode["season_number"]}
 
             if "name" in episode:
-                output["title"] = episode["name"]
+                output["episodeTitle"] = episode["name"]
             else:
-                output["title"] = None
+                output["episodeTitle"] = None
             episodes.append(output)
-
-        self.add_to_cache(episodes)
         return episodes
