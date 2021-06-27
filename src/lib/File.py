@@ -13,7 +13,12 @@ class File():
     def __init__(self, original_file_path):
         self.original_file_path = original_file_path
         path, extension = os.path.splitext(self.original_file_path)
-        seperated_path = path.split('/')
+
+        path = path.replace("/", os.path.sep)
+        path = path.replace("//", os.path.sep)
+        path = path.replace("\\", os.path.sep)
+
+        seperated_path = path.split(os.path.sep)
 
         self.extension = extension
 
@@ -31,7 +36,6 @@ class File():
             Extracts data from filename
         """
         filename_data = PTN.parse(self.filename)
-        print(filename_data)
         for key, val in filename_data.items():
             if isinstance(val, int):
                 val = str(val)
@@ -45,8 +49,12 @@ class File():
             Applies format to file path and filename
         """
         path, extension = os.path.splitext(selected_format)
-        seperated_path = path.split('/')
 
+        path = path.replace("/", os.path.sep)
+        path = path.replace("//", os.path.sep)
+        path = path.replace("\\", os.path.sep)
+
+        seperated_path = path.split(os.path.sep)
         filename = seperated_path[-1]
 
         if self.filename == selected_format or selected_format == "":

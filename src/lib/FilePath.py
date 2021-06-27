@@ -1,7 +1,7 @@
 import os
 class FilePath():
     def __init__(self, full_path):
-        split_path = full_path.split('/')
+        split_path = full_path.split(os.path.sep)
         self.disk = split_path[0]
         self.directories = split_path[1:-1]
 
