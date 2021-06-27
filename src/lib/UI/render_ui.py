@@ -67,4 +67,5 @@ def render_ui():
               width=10, command=lambda: save_format(format_input)).place(x=10, y=615)
 
     format_input.set_cached_value()
+    root.protocol("WM_DELETE_WINDOW", lambda: handle_graceful_close(root))
     root.mainloop()
