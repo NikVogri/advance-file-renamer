@@ -15,7 +15,7 @@ import tkinter as tk
 from lib.config import supported_file_extensions
 from lib.UI.helper_functions import display_error
 
-from tkinter.filedialog import askopenfilenames
+from tkinter.filedialog import askopenfilenames, askdirectory
 
 tmd = Tmd()
 
@@ -36,6 +36,31 @@ def add_files_to_rename(frame, files):
 
     if len(added_files) > 0:
         for file in added_files:
+            _, extension = os.path.splitext(file)
+
+            if extension in supported_file_extensions:
+                files.append(File(file))
+
+    render_file_names(frame, files)
+
+
+def search_dir_files(frame, files):
+    """ 
+        Opens directory selector & appends files inside of a dir
+    """
+    directory_path = askdirectory()
+    if directory_path == "":
+        return
+
+    files.clear()
+    # dir_files = os.listdir(directory_path)
+
+    dir_files = []
+    for (dirpath, dirnames, filenames) in os.walk(directory_path):
+        dir_files += [os.path.join(dirpath, file) for file in filenames]
+
+    if len(dir_files) > 0:
+        for file in dir_files:
             _, extension = os.path.splitext(file)
 
             if extension in supported_file_extensions:

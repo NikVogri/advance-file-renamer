@@ -27,9 +27,13 @@ def render_ui():
         root, bg="#fefefe", highlightbackground="#f0f0f0", highlightthickness=0.5)
     result_frame.place(relwidth=0.5, relheight=0.75, relx=0.5)
 
-    upload_button = tk.Button(
-        selector_frame, text="Select", command=lambda: add_files_to_rename(selector_frame, files))
-    upload_button.pack(side=tk.BOTTOM)
+    upload_file_button = tk.Button(
+        selector_frame, text="Select file/files", command=lambda: add_files_to_rename(selector_frame, files))
+    upload_file_button.pack(side=tk.BOTTOM)
+
+    upload_dir_button = tk.Button(
+        selector_frame, text="Select folder", command=lambda: search_dir_files(selector_frame, files))
+    upload_dir_button.pack(side=tk.BOTTOM)
 
     configuration_frame = tk.Frame(
         root, highlightbackground="#f0f0f0", highlightthickness=0.5, bg="#fefefe")

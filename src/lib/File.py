@@ -31,11 +31,13 @@ class File():
             Extracts data from filename
         """
         filename_data = PTN.parse(self.filename)
+        print(filename_data)
         for key, val in filename_data.items():
             if isinstance(val, int):
                 val = str(val)
                 filename_data[key] = str(val)
-            filename_data[key] = val.replace(".", "").replace("#", "")
+            if isinstance(val, str):
+                filename_data[key] = val.replace(".", "").replace("#", "")
         return filename_data
 
     def apply_format(self, selected_format):
