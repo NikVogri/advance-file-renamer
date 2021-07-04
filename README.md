@@ -2,7 +2,7 @@
 
 ## Description
 
-Free and easy to use advance file renamer built with Python. Select TV or Movie & subtitle files and rename and/or move them by specifying a new format!
+Free and easy to use advance file renamer built with Python. Select TV or Movie & subtitle files and rename and/or move them by specifying a new simple to use format!
 
 ## Packages
 
@@ -24,37 +24,45 @@ Free and easy to use advance file renamer built with Python. Select TV or Movie 
 ### Usage
 
 1. Select tv show / movie & subtitle file
-2. Add \*format
-3. Rename by clicking the rename button
+2. Add format
+3. Rename & move file
 
 #### currently supported format types:
 
 ```
 #title# -> Game of thrones
 #year# -> 2011
-#season -> 01
-#episode# -> 01
+#pSeason# -> 01
+#season# -> 1
+#pEpisode# -> 01
+#episode# -> 1
 #episodeTitle# -> Winter is coming
 ```
 
 #### Examples:
 
 ```
-#episodeTitle# - E#episode#S#season# -> Pilot S01E01
+#episodeTitle# - E#pEpisode#S#pSeason# -> Pilot S01E01
 ```
 
 ```
-#title# #year# -> V for Vandetta 2005
+#title# (#year#) -> V for Vandetta (2005)
 ```
 
 ## Future improvements
 
--   Option to rename directories
--   Bigger selection of format types
--   Move files when renaming by specifying new directory
+-   UI rework
 -   Click to run
 -   Better error handling
 -   Other advance features
+-   Linux support
+-   MacOs support
+-   <s>Option to rename directories</s>
+-   <s>Bigger selection of format types</s>
+-   <s>Move files when renaming by specifying new directory</s>
+
+## Notice
+At the moment this product only runs on windows platforms. The support for both Linux and MacOs will be added in the future.
 
 ## Credit
 Nik Vogrinec - [Github](https://github.com/nikvogri)
