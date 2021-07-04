@@ -71,12 +71,12 @@ def preview_file_names(frame, format_input, files):
     """ 
         Converts file names to selected format & stores the new file name to memory.
     """
-    selected_format = format_input.getValue()
+    selected_format = format_input.get_value()
 
     for file in files:
         if "#episodeTitle#" in selected_format and "episodeTitle" not in file.filename_data:
             file_data = file.filename_data
-            cached = Cache.read_from_cache(name="main.txt")
+            cached = Cache.read_from_cache(name="main.txt")         
 
             if cached != -1 and file_data["season"] in cached:
                 episode_data = find_episode(cached[file_data["season"]], file.filename_data["episode"])
@@ -123,7 +123,8 @@ def render_file_names(frame, files_list):
 
 def convert_file_names(root, frames, files):
     """ 
-        Initiates the renaming of all files stored in memory
+        Renames files and moves them to their new location. If the location is on another disk it initiates the move
+        and deletes the file from the original location. If the location is on the same disk it simply renames the file.
     """
     for file in files:
         original_file_full = f'{file.original_path.build_path()}{os.path.sep}{file.original_filename}{file.extension}'
@@ -157,11 +158,19 @@ def save_format(format_string):
     """ 
         Saves format input to file
     """
-    selected_format = format_string.getValue()
+    selected_format = format_string.get_value()
 
     if selected_format.strip() != "":
         cache = Cache()
         cache.add_to_cache(selected_format, name="format.txt")
+
+def select_path_directory(format_string):
+    """
+        Prompts user to select a new directory for files. 
+    """
+    selected_directory = askdirectory()
+    selected_directory = selected_directory.replace("/", os.path.sep).replace("//", os.path.sep).replace("\\", os.path.sep)
+    format_string.update_value(f"{selected_directory}{os.path.sep}#title#")
 
 
 def handle_graceful_close(root):

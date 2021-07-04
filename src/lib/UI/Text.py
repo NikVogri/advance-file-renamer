@@ -21,7 +21,7 @@ class Text(Cache):
         cached_text_val = self.read_from_cache(name="format.txt")
 
         if cached_text_val != -1:
-            self.text.set(cached_text_val)
+            self.update_value(cached_text_val)
 
     def getValue(self, text_type="string"):
         text = self.text.get().strip()
@@ -33,3 +33,6 @@ class Text(Cache):
                 return 0
         else:
             return text
+
+    def update_value(self, updated_text):
+        self.text.set(updated_text)

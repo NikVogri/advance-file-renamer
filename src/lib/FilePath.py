@@ -1,3 +1,7 @@
+# -----------------------------------------------------------
+# FilePath class for managing directory paths
+# Author Nik Vogrinec - https://github.com/nikvogri
+# -----------------------------------------------------------
 import os
 class FilePath():
     def __init__(self, full_path):

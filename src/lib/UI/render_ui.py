@@ -50,7 +50,7 @@ def render_ui():
              text="Desired format: ").place(x=10, y=570)
 
     tk.Label(configuration_frame_labels,
-             text="title - #title# \n year - #year# \n season - #season \n episode - #episode# \n episodeTitle - #episodeTitle#").place(
+             text="Title - #title# - Game of Thones \n Year - #year# - 2011 \n Season - #season - 1 \n Episode - #episode# - 1 \n Episode title - #episodeTitle# - Winter is coming \n Prefix episode - #pEpisode# - 01 \n Prefix season - #pSeason# - 01").place(
         x=700, y=570)
 
     format_input = Text(configuration_frame_labels,
@@ -65,6 +65,9 @@ def render_ui():
 
     tk.Button(configuration_frame_labels, text="Save format", height=1,
               width=10, command=lambda: save_format(format_input)).place(x=10, y=615)
+
+    tk.Button(configuration_frame_labels, text="Select path", height=1,
+              width=10, command=lambda: select_path_directory(format_input)).place(x=100, y=615)
 
     format_input.set_cached_value()
     root.protocol("WM_DELETE_WINDOW", lambda: handle_graceful_close(root))
