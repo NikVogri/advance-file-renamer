@@ -23,7 +23,7 @@ class Text(Cache):
         if cached_text_val != -1:
             self.update_value(cached_text_val)
 
-    def getValue(self, text_type="string"):
+    def get_value(self, text_type="string"):
         text = self.text.get().strip()
 
         if text_type == "number":
